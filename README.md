@@ -2,19 +2,19 @@
 
 ##### 1.打开热点
 
-![image-20250409224959245](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409224959245.png)
+![image-20250409224959245](image-20250409224959245.png)
 
 ##### 2.右键网络图标选择 打开网络设置
 
-![image-20250409225146521](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409225146521.png)
+![image-20250409225146521](image-20250409225146521.png)
 
 ##### 3.选择更改适配器选项
 
-![image-20250409225158510](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409225158510.png)
+![image-20250409225158510](image-20250409225158510.png)
 
 ##### 4.右键WLAN 选择状态
 
-![image-20250409225211170](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409225211170.png)
+![image-20250409225211170](image-20250409225211170.png)
 
 ##### 5.点击属性
 
