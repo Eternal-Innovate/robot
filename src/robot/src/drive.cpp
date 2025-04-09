@@ -7,7 +7,7 @@
 * @brief        小车前进实验
 * @details
 * @par History  见如下说明
-*
+* 123
 */
 #include <wiringPi.h>
 #include <softPwm.h>
