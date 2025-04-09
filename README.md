@@ -18,31 +18,31 @@
 
 ##### 5.点击属性
 
-![image-20250409225220337](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409225220337.png)
+![image-20250409225220337](image-20250409225220337.png)
 
 ##### 6.选择共享
 
-![image-20250409225228776](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409225228776.png)
+![image-20250409225228776](image-20250409225228776.png)
 
 ##### 7.选择允许共享
 
-![image-20250409225236758](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409225236758.png)
+![image-20250409225236758](image-20250409225236758.png)
 
 ##### 8.家庭网络连接选择热点所在(本地连接**2一类)*
 
-![image-20250409225244451](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409225244451.png)
+![image-20250409225244451](image-20250409225244451.png)
 
 ##### 9.（热点所在网络 一般为本地连接*2）可在通过关开热点查看来确定.
 
-![image-20250409225253820](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409225253820.png)
+![image-20250409225253820](image-20250409225253820.png)
 
 ## 二、Clash配置
 
 ##### 1.启用配置中的局域网连接和TUN连接
 
-![image-20250409225731527](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409225731527.png)
+![image-20250409225731527](image-20250409225731527.png)
 
-![image-20250409225743836](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409225743836.png)
+![image-20250409225743836](image-20250409225743836.png)
 
 ##### (记得正常启用clash --打开系统代理)
 
@@ -55,15 +55,15 @@
 
 ##### 3.在电脑端 开机界面输入cmd 查看命令提示符
 
-![image-20250409230203584](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409230203584.png)
+![image-20250409230203584](image-20250409230203584.png)
 
 ##### 4.在其中输入 命令ipconfig
 
-##### ![image-20250409230259855](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409230259855.png)
+##### ![image-20250409230259855](image-20250409230259855.png)
 
 ##### 5.找到无线局域网适配器的Ipv4地址
 
-![image-20250409230334499](C:\Users\HUAWEI\AppData\Roaming\Typora\typora-user-images\image-20250409230334499.png)
+![image-20250409230334499](image-20250409230334499.png)
 
 ##### 6.在手机代理的服务器主机名中输入上方ipv4地址
 
