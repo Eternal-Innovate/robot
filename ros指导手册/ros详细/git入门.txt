@@ -1,0 +1,15 @@
+git config --global user.email "wereqrw311@outlook.com"
+git config --global --unset usr.email 
+git config -l
+具体信息参考
+init.defaultbranch=master
+user.email=wereqrw311@outlook.com
+user.name=innovation
+git add ./src
+git commit -m "PC状态可视化tool"
+git log
+在当前目录下创建.gitignore
+输入
+build/
+install/
+log/

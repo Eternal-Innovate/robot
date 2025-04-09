@@ -1,0 +1,81 @@
+1. DNS设置
+sudo rm /etc/resolv.conf
+sudo vim /etc/resolv.conf
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+
+2.静态ip设置
+sudo vim /etc/netplan/50-cloud-init.yaml
+dhcp4: no
+addresses: [192.168.137.158/24]
+gateway4: 192.168.137.1
+nameserver:
+   addresses: [8.8.8.8， 8.8.4.4]
+
+sudo netplan apply
+3.代理设置
+PC IPV4 192.168.137.1
+vim ~/.bashrc   or /etc/environment
+export http_proxy=http://192.168.137.1:7890
+export https_proxy=http://192.168.137.1:7890
+export all_proxy=socks5://192.168.137.1:7890
+source ~/.bashrc
+
+sudo vim /etc/apt/apt.conf.d/proxy.conf
+Acquire::http::Proxy "http://192.168.137.1:7890";
+Acquire::https::Proxy "http://192.168.137.1:7890";
+
+curl -x socks5://192.168.137.1:7891 https://www.google.com
+
+4.设置ssh与wifi优先级
+sudo mkdir -p /etc/systemd/system/ssh.service.d
+sudo vim /etc/systemd/system/ssh.service.d/override.conf
+[Service]
+Nice=-20
+IOSchedulingClass=2
+IOSchedulingPriority=2
+sudo systemctl daemon-reload
+sudo systemctl restart ssh.service
+
+sudo mkdir -p /etc/systemd/system/wpa_supplicant.service.d
+sudo vim /etc/systemd/system/wpa_supplicant.service.d/override.conf
+[Service]
+Nice=-20
+IOSchedulingClass=2
+IOSchedulingPriority=2
+
+sudo systemctl daemon-reload
+sudo systemctl restart wpa_supplicant.service
+
+
+ps -eo pid,nice,comm | grep ssh
+ps -eo pid,nice,comm | grep wpa_supplicant
+
+sudo systemctl edit systemd-networkd.service
+[Service]
+Nice=-20
+sudo systemctl daemon-reload
+sudo systemctl restart systemd-networkd.service
+ps -eo pid,nice,comm | grep systemd-network
+5.设置交换内存
+free -h
+
+sudo fallocate -l 2G /swapfile
+
+sudo chmod 600 /swapfile
+
+sudo mkswap /swapfile
+
+sudo swapon /swapfile
+
+要让交换空间在系统重启后仍然可用，需要将其添加到 /etc/fstab 文件中。在文件末尾添加以下行：
+/swapfile none swap defaults 0 0
+6.Vscode配置与ros指令
+mkdir -p ~/ros_ws/src/
+ros2 pkg create xx_pkg
+
+C++/C 与python插件下载
+
+7.vscode 导入库设置
+
+设置里在c_cpp_properties.json中添加/opt/ros/<ros2_distro>/include/

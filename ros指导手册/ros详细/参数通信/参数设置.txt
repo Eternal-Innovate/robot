@@ -1,0 +1,43 @@
+        
+def __init__(self):
+        self.declare_parameter('number_of_times_to_upsample', 1)
+        self.declare_parameter('model', 'hog')
+        self.number_of_times_to_upsample = self.get_parameter('number_of_times_to_upsample').value
+        self.model = self.get_parameter('model').value
+
+
+ros2 param set /face_detect_node number_of_times_to_upsample 2
+
+ros2 param get /face_detect_node number_of_times_to_upsample
+
+ros2 param list
+
+
+
+C++形式
+this->declare_parameter("k", 1.0);
+        this->declare_parameter("max_speed", 1.0);
+        this->get_parameter("k", k);
+        this->get_parameter("max_speed", max_speed);
+        this->set_parameter(rclcpp::Parameter("k", 2.0));
+parameter_callback_handle_ = this->add_on_set_parameters_callback([&](const std::vector<rclcpp::Parameter> & parameters)->SetParametersResult_{
+            rcl_interfaces::msg::SetParametersResult result;
+            result.successful = true;
+            for (const auto & parameter : parameters) {
+                RCLCPP_INFO(this->get_logger(), "更新参数%s=%f", parameter.get_name().c_str(), parameter.as_double());
+                // if (!) {
+                // result.successful = false;
+                // result.reason = "the reason it could not be allowed";
+                // }
+                if(parameter.get_name()=="k")
+                {
+                    k = parameter.as_double();
+                }
+                if(parameter.get_name()=="max_speed")
+                {
+                    max_speed =  parameter.as_double();
+                }
+            }
+            return result;
+        });
+

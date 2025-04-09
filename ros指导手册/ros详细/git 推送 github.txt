@@ -1,0 +1,41 @@
+一、命令行上创建新存储库
+echo "# test-ros2" >> README.md
+git init
+git add README.md
+git commit -m "first commit" //m表示指定内容
+git branch -M main //-M表示重命名分支
+git remote add origin https://github.com/Eternal-Innovate/test-ros2.git
+git push -u origin main //添加新的仓库分支 这里为主分支 -u为设置上游分支它会将本地的 main 分支与远程仓库的 main 分支关联起来，以后使用 git push 时就可以直接推送，而不需要每次都指定远程仓库和分支名。
+之后 本地add commit后 push即可
+
+二、.gitignore使用规范
+# 忽略所有 .log 文件
+*.log
+# 忽略 node_modules 目录
+node_modules/
+# 忽略 .env 文件
+.env
+# 忽略 build 目录
+build/
+# 忽略 .DS_Store 文件（macOS）
+.DS_Store
+
+三、撤销操作
+1.对于已经push的, 删除本地文件后, 重新push
+2.对于本地add暂存的, git reset (<file>）
+
+四、分支操作
+git branch 查看当前分支列表
+git branch <name> 创建新分支
+git checkout <name> 切换分支
+git log --oneline 查看提交历史 及其hash值
+git reset --hard <commit-hash> 恢复到指定提交状态 可添加--hard参数完全更改
+五、管理相关
+源代码管理区可以查看git状态
+git checkout <file>可以查看目标文件状态
+git log 查看提交记录
+
+End、从命令行推送现有存储库
+git remote add origin https://github.com/Eternal-Innovate/test-ros2.git
+git branch -M main
+git push -u origin main

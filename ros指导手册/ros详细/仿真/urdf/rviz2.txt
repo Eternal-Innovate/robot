@@ -1,0 +1,5 @@
+sudo apt install ros-$ROS_DISTRO-joint-state-publisher
+sudo apt install ros-$ROS_DISTRO-robot-state-publisher
+
+launch
+.launch.py

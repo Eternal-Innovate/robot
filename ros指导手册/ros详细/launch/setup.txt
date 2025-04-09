@@ -1,0 +1,3 @@
+('share/' + package_name+"/launch", glob('launch/*.launch.py')),
+
+from glob import glob

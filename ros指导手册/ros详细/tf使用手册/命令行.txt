@@ -1,0 +1,10 @@
+1.发布base_link到base_laser之间的变换
+ros2 run tf2_ros static_transform_publisher --x 0.1 --y 0.0 --z 0.2 --roll 0.0 --pitch 0.0 --yaw 0.0 --frame-id base_link --child-frame-id base_laser
+2.发布base_laser到wall_point之间的变换
+ros2 run tf2_ros static_transform_publisher --x 0.3 --y 0.0 --z 0.0 --roll 0.0 --pitch 0.0 --yaw 0.0 --frame-id base_laser --child-frame-id wall_point
+3.查询base_lin到wall_point之间的关系
+ros2 run tf2_ros tf2_echo base_link wall_point
+4.sudo apt install ros-humble-mrpt2 -y
+或者(如果上面的不行) sudo apt install mrpt-apps
+5.3d-rotation-converter
+6.ros2 run tf2_tools view_frames

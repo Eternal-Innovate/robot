@@ -1,0 +1,27 @@
+from rcl_interfaces.msg import SetParametersResult
+
+self.add_on_set_parameters_callback(self.parameter_callback)
+需要传入callback(list[paramter], SetParametersResult)<-看self.add_on_set_parameters_callback定义
+
+所以写一个 (例)
+def parameter_callback(self, paramters):
+        for paramter in paramters:
+            self.get_logger().info(f'{paramter.name}->{paramter.value}')
+            if paramter.name == 'number_of_times_to_upsample':
+                self.number_of_times_to_upsample = paramter.value
+            if paramter.name == 'model':
+                self.model = paramter.value
+        return SetParametersResult(successful=True)
+
+
+
+
+C++形式
+#include "rcl_interfaces/msg/parameter.hpp"
+#include "rcl_interfaces/msg/parameter_value.hpp"
+#include "rcl_interfaces/msg/parameter_type.hpp"
+#include "rcl_interfaces/srv/set_parameters.hpp"
+using SetP = rcl_interfaces::srv::SetParameters;
+
+创建客户端发送请求, 返回结果
+

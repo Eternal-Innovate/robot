@@ -1,0 +1,12 @@
+https://www.bilibili.com/video/BV1ti4y157Dh/?spm_id_from=333.337.search-card.all.click&vd_source=ac9f4db3b38605c1e871d67bf23ef697
+
+
+力矩与做功关系
+
+对整个过程积分，得到总功：W=∫ θ 1θ 2 τdθ
+
+如果力矩 τ 是恒定的，则公式简化为：
+W=τ⋅Δθ
+
+
+

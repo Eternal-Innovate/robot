@@ -1,0 +1,31 @@
+加载环境
+source /opt/ros/humble/setup.bash
+代理下载
+sudo http_proxy=http://192.168.137.1:7890 https_proxy=http://192.168.137.1:7890 apt install
+ros-<your_ros2_distribution>-ament-cmake 
+
+单独编译 可选忽略某些包
+colcon build --packages-select cartographer_ros --packages-ignore cartographer_ros_msgs
+
+当前路径下创建包
+ros2 pkg create my_slam_pkg --build-type ament_cmake
+
+ros2 service/topic list -t
+
+ros2 interface show 服务
+
+ros2 service call /spawn tur... "{x: 1, y: 1}"
+
+rqt -> plugins -> service -> service call ->service 选择 -》 数据填写 -》 点击call
+(paramter)
+ros2 param list
+
+ros2 param describe /turtlesim background_r
+
+ros2 param get /turtlesim background_r
+
+ros2 param set /turtlesim background_r 255
+
+ ros2 param dump /turtlesim > turtlesim_param.yaml
+
+ros2 run turtlesim turtlesim_node --ros-args --params-file turtlesim_param.yaml

@@ -1,0 +1,5 @@
+1.ros2 launch slam_toolbox online_async_launch.py use_sim_time:=True
+启动slam_toolbox
+2.sudo apt install ros-$ROS_DISTRO-nav2-map-server
+保存地图
+3.ros2 run nav2_map_server map_saver_cli -f room

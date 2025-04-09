@@ -1,0 +1,199 @@
+urdf文件下, 创建bot文件夹, 其下创建sensor文件夹
+创建camera/imu/laser.urdf.xacro文件
+分别写入
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="second_robot">
+
+    <xacro:macro name="camera_xacro" params="xyz">
+        <!-- 机器人的IMU部件， 惯性测量传感器 -->
+        <link name="camera_link">
+            <!-- 部件的外观描述 -->
+            <visual>
+                <!-- 沿着自己的几何中心的偏移和旋转量 -->
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>    
+                <geometry>
+                    <box size="0.02 0.02 0.02"/>
+                </geometry>
+                <!-- 材质颜色 -->
+                <material name="black">
+                    <color rgba="0.0 0.0 0.0 0.5"/>    
+                </material>
+            </visual>
+        </link>
+         <!-- 机器人的关节， 用于组合机器人的部件 -->
+        <joint name="camera_joint" type="fixed">
+            <parent link="base_link"/>
+            <child link="camera_link"/>
+            <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
+        </joint>
+    </xacro:macro>
+
+</robot>
+
+--------
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="second_robot">
+
+    <xacro:macro name="imu_xacro" params="xyz">
+        <!-- 机器人的IMU部件， 惯性测量传感器 -->
+        <link name="imu_link">
+            <!-- 部件的外观描述 -->
+            <visual>
+                <!-- 沿着自己的几何中心的偏移和旋转量 -->
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>    
+                <geometry>
+                    <box size="0.02 0.02 0.02"/>
+                </geometry>
+                <!-- 材质颜色 -->
+                <material name="black">
+                    <color rgba="0.0 0.0 0.0 0.5"/>    
+                </material>
+            </visual>
+        </link>
+         <!-- 机器人的关节， 用于组合机器人的部件 -->
+        <joint name="imu_joint" type="fixed">
+            <parent link="base_link"/>
+            <child link="imu_link"/>
+            <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
+        </joint>
+    </xacro:macro>
+
+</robot>
+-------------------------------------------
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="second_robot">
+
+    <xacro:macro name="laser_xacro" params="xyz">
+        <!-- 机器人的laser部件 -->
+        <link name="laser_cylinder_link">
+            <!-- 部件的外观描述 -->
+            <visual>
+                <!-- 沿着自己的几何中心的偏移和旋转量 -->
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>    
+                <geometry>
+                    <cylinder radius="0.01" length="0.1"/>
+                </geometry>
+                <!-- 材质颜色 -->
+                <material name="black">
+                    <color rgba="0.0 0.0 0.0 1.0"/>    
+                </material>
+            </visual>
+        </link>
+        <link name="laser_link">
+            <!-- 部件的外观描述 -->
+            <visual>
+                <!-- 沿着自己的几何中心的偏移和旋转量 -->
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>    
+                <geometry>
+                    <cylinder radius="0.02" length="0.02"/>
+                </geometry>
+                <!-- 材质颜色 -->
+                <material name="black">
+                    <color rgba="0.0 0.0 0.0 1.0"/>    
+                </material>
+            </visual>
+        </link>
+         <!-- 机器人的关节， 用于组合机器人的部件 -->
+        <joint name="laser_joint" type="fixed">
+            <parent link="laser_cylinder_link"/>
+            <child link="laser_link"/>
+            <origin xyz="0.0 0.0 0.05" rpy="0.0 0.0 0.0"/>
+        </joint>
+
+        <joint name="laser_cylinder_joint" type="fixed">
+            <parent link="base_link"/>
+            <child link="laser_cylinder_link"/>
+            <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
+        </joint>
+    </xacro:macro>
+
+</robot>
+
+
+-----------------------------
+在bot文件夹下有base.urdf.xacro和bot.urdf.xacro
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="second_robot">
+
+  <xacro:macro name="base_xacro" params="length radius">
+        <!-- 机器人的身体部分 -->
+        <link name="base_link">
+            <!-- 部件的外观描述 -->
+            <visual>
+                <!-- 沿着自己的几何中心的偏移和旋转量 -->
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>    
+                <geometry>
+                    <cylinder radius="${radius}" length="${length}"/>
+                </geometry>
+                <!-- 材质颜色 -->
+                <material name="black">
+                    <color rgba="1.0 1.0 1.0 0.5"/>    
+                </material>
+            </visual>
+        </link>    
+    </xacro:macro> 
+
+</robot>
+
+--------------------------------
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="second_robot">
+
+<xacro:include filename="$(find bot_descri)/urdf/bot/base.urdf.xacro"/>
+<xacro:include filename="$(find bot_descri)/urdf/bot/sensor/imu.urdf.xacro"/>
+<xacro:include filename="$(find bot_descri)/urdf/bot/sensor/camera.urdf.xacro"/>
+<xacro:include filename="$(find bot_descri)/urdf/bot/sensor/laser.urdf.xacro"/>
+
+<xacro:base_xacro length="0.12" radius="0.10"/>
+<xacro:imu_xacro xyz="0.0 0.0 0.02"/>
+<xacro:camera_xacro xyz="0.1 0.0 0.075"/>
+<xacro:laser_xacro xyz="0.0 0.0 0.10"/>
+</robot>
+------------------------
+编译 source后
+ros2 launch bot_descri display_robot.launch.py model:=/home/innovation/chatpt6/src/bot_descri/urdf/bot/bot.urdf.xacro启动
+
+启动代码
+import launch
+import launch_ros
+from ament_index_python.packages import get_package_share_directory
+import os
+
+import launch_ros.parameter_descriptions
+
+def generate_launch_description():
+    # 获取默认的urdf路径
+    urdf_package_path = get_package_share_directory('bot_descri')
+    urdf_path = os.path.join(urdf_package_path, 'urdf', 'first_robot.urdf')
+    #default_rviz_config_path = os.path.join(urdf_package_path, 'config', 'display_robot_model.rviz')
+    #声明一个urdf目录的参数， 方便修改
+    action_declare_arg_mode_path = launch.actions.DeclareLaunchArgument(
+        name='model',default_value=str(urdf_path), description='加载的模型文件路径'
+    )
+
+    #通过文件路径， 获取内容， 并转换成数值对象， 以供传入 robot_state_publisher
+    command_result = launch.substitutions.Command(['xacro ', launch.substitutions.LaunchConfiguration('model')])
+    robot_description_value = launch_ros.parameter_descriptions.ParameterValue(command_result, value_type=str)
+    action_robot_state_publisher = launch_ros.actions.Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        parameters=[{'robot_description':robot_description_value}]
+
+    )
+    action_joint_state_publisher = launch_ros.actions.Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+
+    )
+    action_rviz_node = launch_ros.actions.Node(
+        package='rviz2',
+        executable='rviz2',
+ #       arguments=['-d', default_rviz_config_path],
+    )
+    return launch.LaunchDescription([
+        action_declare_arg_mode_path,
+        action_robot_state_publisher,
+        action_joint_state_publisher,
+        action_rviz_node,
+    ])
+

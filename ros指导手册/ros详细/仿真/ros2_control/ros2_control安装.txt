@@ -1,0 +1,8 @@
+1.sudo apt install ros-$ROS_DISTRO-ros2-control
+
+2.ros2 control --help
+
+3.sudo apt info ros-$ROS_DISTRO-ros2-controllers
+
+4.sudo apt install ros-$ROS_DISTRO-ros2-controllers
+

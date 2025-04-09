@@ -1,0 +1,155 @@
+一、ROS安装
+sudo apt update
+wget http://fishros.com/install -O fishros && bash fishros
+
+二、代理配置
+1. 配置主机的网络共享
+将主机的网络连接共享给虚拟机，使虚拟机可以通过主机访问外部网络。
+
+1.1 启用主机的网络共享
+打开 控制面板 -> 网络和共享中心 -> 更改适配器设置。
+
+找到你正在使用的网络连接（如 Wi-Fi 或以太网），右键点击并选择 属性。
+
+进入 共享 选项卡，勾选 允许其他网络用户通过此计算机的 Internet 连接来连接。
+
+在下拉菜单中选择 VirtualBox 虚拟网络适配器（如 VirtualBox Host-Only Network）。
+
+点击 确定 保存设置。
+
+2. 配置 VirtualBox 的网络模式
+将虚拟机的网络模式设置为 Host-Only 或 内部网络，以便虚拟机可以通过主机访问网络。
+
+2.1 设置 Host-Only 网络
+在 VirtualBox 中，选择你的虚拟机，点击 设置。
+
+进入 网络 选项卡。
+
+将 连接方式 设置为 Host-Only 网络。
+
+点击 确定 保存设置。
+
+3. 配置主机的代理工具
+确保 Clash for Windows 正在运行，并配置为允许局域网设备使用代理。
+
+3.1 允许局域网设备使用代理
+打开 Clash for Windows。
+
+点击左侧菜单的 General（常规）。
+
+在 Allow LAN（允许局域网）选项中，启用 Allow LAN。
+
+点击 Save（保存）以应用更改。
+
+4. 配置虚拟机的网络
+在虚拟机中，将主机的 IP 地址设置为网关，并配置代理。
+
+4.1 获取主机的 IP 地址
+在 Windows 主机上，打开命令提示符（CMD）。
+
+运行以下命令：
+
+cmd
+复制
+ipconfig
+找到 VirtualBox Host-Only Network 适配器的 IPv4 地址（如 192.168.56.1）。
+
+4.2 配置虚拟机的网络
+启动 Ubuntu 虚拟机并登录。
+
+打开终端，编辑网络配置文件：
+
+bash
+复制
+sudo nano /etc/netplan/01-netcfg.yaml
+添加以下内容（假设主机的 IP 地址是 192.168.56.1）：
+
+yaml
+复制
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s3:
+      dhcp4: no
+      addresses:
+        - 192.168.56.2/24
+      gateway4: 192.168.56.1
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4
+保存并退出编辑器（按 Ctrl+O，然后按 Ctrl+X）。
+
+应用网络配置：
+
+bash
+复制
+sudo netplan apply
+5. 配置虚拟机的代理
+在虚拟机中，配置系统或应用程序使用主机的代理。
+
+5.1 通过环境变量配置代理
+打开终端。
+
+运行以下命令设置 HTTP 和 HTTPS 代理：
+
+bash
+复制
+export http_proxy=http://192.168.137.1:7890
+export https_proxy=http://192.168.137.1:7890
+192.168.56.1 是主机的 IP 地址。
+
+/etc/apt/apt.conf.d/
+Acquire::http::Proxy "http://192.168.137.1:7890";
+Acquire::https::Proxy "http://192.168.137.1:7890";
+
+如果你配置了 SOCKS5 代理，可以使用：
+
+bash
+复制
+export http_proxy=socks5://192.168.56.1:7891
+export https_proxy=socks5://192.168.56.1:7891
+验证代理是否生效：
+
+bash
+复制
+curl -I http://www.google.com
+如果返回 HTTP 状态码（如 200），说明代理配置成功。
+
+如果希望代理设置永久生效，可以将上述命令添加到 ~/.bashrc 或 ~/.zshrc 文件中：
+
+bash
+复制
+echo 'export http_proxy=http://192.168.56.1:7890' >> ~/.bashrc
+echo 'export https_proxy=http://192.168.56.1:7890' >> ~/.bashrc
+source ~/.bashrc
+5.2 通过系统设置配置代理
+打开 设置 -> 网络 -> 网络代理。
+
+将 手动 设置为：
+
+HTTP 代理：192.168.56.1
+
+端口：7890
+
+HTTPS 代理：192.168.56.1
+
+端口：7890
+
+SOCKS 主机：192.168.56.1
+
+端口：7891
+
+点击 应用。
+
+6. 验证代理是否生效
+在 Ubuntu 虚拟机中，运行以下命令测试代理：
+
+bash
+复制
+curl -I http://www.google.com
+如果返回 HTTP 状态码（如 200），说明代理配置成功。
+
+
+

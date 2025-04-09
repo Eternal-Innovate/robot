@@ -1,0 +1,35 @@
+1.创建功能包
+ros2 pkg create demo_cpp_service --build-type ament_cmake --dependencies rclcpp geometry_msgs turtlesim service_interfaces --license Apache-2.0
+
+2.src/xx.cpp
+
+#include "service_interfaces/srv/partol.hpp"
+using Partol = service_interfaces::srv::Partol;
+
+类中
+rclcpp::Service<Partol>::SharedPtr partol_service_;
+在rclcpp继承的类中
+        partol_service_ = this->create_service<Partol>("Partol", [&](const 
+        Partol::Request::SharedPtr request, Partol::Response::SharedPtr response)->void{
+            if(
+                (request->target_x>0&&request->target_x<12.0f)&&
+                (request->target_y>0&&request->target_y<12.0f)
+            ){
+                this->target_x = request->target_x;
+                this->target_y = request->target_y;
+                response->result = Partol::Response::SUCCESS;
+            }
+            else{
+                response->result = Partol::Response::FAIL;
+            }
+            
+        });
+
+add_executable(turtle_control src/turtle_control.cpp)
+ament_target_dependencies(turtle_control service_interfaces turtlesim geometry_msgs rclcpp)
+
+install(TARGETS
+turtle_control
+DESTINATION lib/${PROJECT_NAME})
+
+rqt service call操作

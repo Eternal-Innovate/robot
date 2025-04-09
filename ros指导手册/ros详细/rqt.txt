@@ -1,0 +1,3 @@
+sudo apt install ros-humble-rqt-tf-tree -y
+
+rm -rf ~/.config/ros.org/rqt_gui.ini
